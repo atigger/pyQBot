@@ -1,4 +1,10 @@
-QQBOT
+# pyQBot
+
+[![License](https://img.shields.io/github/license/atigger/pyQBot.svg)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/nonebot.svg)](https://pypi.python.org/pypi/nonebot)
+![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)
+![OneBot Version](https://img.shields.io/badge/OneBot-v10,v11-black.svg)
+![NoneBot Version](https://img.shields.io/badge/NoneBot-v1-green.svg)
 
 本项目基于 [NoneBot](https://github.com/nonebot/nonebot) 开发
 
