@@ -8,7 +8,7 @@
 
 本项目基于 [NoneBot](https://github.com/nonebot/nonebot) 开发
 
-[如何使用？](https://v1.nonebot.dev/) 
+[如何使用？](https://v1.nonebot.dev/guide/getting-started.html) 
 
 [如何配置？](CONFIG.md) 
 
