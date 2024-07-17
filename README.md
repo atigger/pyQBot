@@ -1,8 +1,8 @@
 QQBOT
 
-本项目基于 [OneBot](https://github.com/botuniverse/onebot-11) [![Onebot11](https://img.shields.io/badge/version-V11-green)](https://github.com/botuniverse/onebot-11)开发
+本项目基于 [NoneBot](https://github.com/nonebot/nonebot) 开发
 
-[如何使用？](https://onebot.dev/ecosystem#onebot-11-10-cqhttp) 
+[如何使用？](https://v1.nonebot.dev/) 
 
 [如何配置？](CONFIG.md) 
 
