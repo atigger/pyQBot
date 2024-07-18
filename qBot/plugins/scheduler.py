@@ -34,7 +34,7 @@ async def auto_fortune():
         return
     fortune_txt: str = await get_fortune()
     fortune_txt = fortune_txt.replace("\n", "", 1)
-    if fortune_txt == "获取运势失败":
+    if fortune_txt.find("获取运势失败") != -1:
         return
     bot = nonebot.get_bot()
     send_group_list = config.GROUP_LIST

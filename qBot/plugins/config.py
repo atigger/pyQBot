@@ -7,7 +7,7 @@ from qBot import api, untils
 
 CONFIG_DIR = os.path.join(os.path.dirname(__file__), 'config')
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 
 
 async def init_data():

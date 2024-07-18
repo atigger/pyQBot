@@ -8,11 +8,11 @@
 
 本项目基于 [NoneBot](https://github.com/nonebot/nonebot) 开发
 
-[如何使用？](https://v1.nonebot.dev/guide/getting-started.html) 
+[如何使用？](https://v1.nonebot.dev/guide/getting-started.html)
 
-[如何配置？](CONFIG.md) 
+[如何配置？](CONFIG.md)
 
-[在群中使用？]() 
+[在群中使用？]()
 
 ---
 
@@ -52,9 +52,9 @@ Tips:有想要的新功能可以提交issue
 
 更新日志：
 
-2024年7月17日v0.0.1更新
+2024年7月18日v0.0.2更新
 
-1.第一版测试版
+1.修复获取运势错误的问题
 
 ---
 [更新历史](UPDATE.md)
