@@ -1,7 +1,7 @@
 配置文件模板
 ```yaml
 #配置文件版本
-Version: 1.0
+Version: 1.1
 #管理员QQ
 SuperUser: ""
 #百度语音API
@@ -16,10 +16,13 @@ AgreeFriend: false
 #自动同意邀请入群请求
 AgreeGroup: false
 #智能聊天开关
+#是否启用ollama
+#ollama模型名称
+#ollama模型地址
 AI:
-  Open: false
-  Api_Key: ""
-  Api_Secret: ""
+  ENABLE: false
+  MODEL_NAME: ""
+  MODEL_URL: ""
 #自动化操作
 Auto:
   #自动发送运势信息
@@ -29,5 +32,5 @@ Auto:
   #自动发送摸鱼小提示
   AutoTips: true
   #需要自动发送的群列表 用,隔开
-  Group: []
+  Group: [ ]
 ```

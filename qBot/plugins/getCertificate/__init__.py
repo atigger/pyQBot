@@ -53,8 +53,8 @@ async def _(session: NLPSession):
         await session.send('请以以下格式输入\n喜报 喜报内容\n悲报 悲报内容')
         return
     if stripped_msg.startswith('喜报'):
-        args = stripped_msg.replace('喜报', '')
+        args = stripped_msg.replace('喜报', '', 1)
         return IntentCommand(90.0, 'good_news', current_arg=args)
     elif stripped_msg.startswith('悲报'):
-        args = stripped_msg.replace('悲报', '')
+        args = stripped_msg.replace('悲报', '', 1)
         return IntentCommand(90.0, 'bad_news', current_arg=args)
