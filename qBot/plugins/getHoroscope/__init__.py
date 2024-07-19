@@ -1,43 +1,41 @@
 from nonebot import on_command, CommandSession, on_natural_language, NLPSession, IntentCommand
-
 from qBot.plugins.getHoroscope.getHoroscope import get_horoscope
 
+horoscope_mapping = {
+    '白羊': 'aries',
+    '金牛': 'taurus',
+    '双子': 'gemini',
+    '巨蟹': 'cancer',
+    '狮子': 'leo',
+    '处女': 'virgo',
+    '天秤': 'libra',
+    '天蝎': 'scorpio',
+    '射手': 'sagittarius',
+    '摩羯': 'capricorn',
+    '水瓶': 'aquarius',
+    '双鱼': 'pisces',
+    '星座运势': '',
+    '星座': '',
+}
 
-@on_command('horoscope', aliases=(
-        '星座运势', '星座', '白羊', '金牛', '双子', '巨蟹', '狮子', '处女', '天秤', '天蝎', '射手', '摩羯', '水瓶',
-        '双鱼'))
-async def getHoroscope(session: CommandSession):
+
+@on_command('horoscope', aliases=tuple(horoscope_mapping.keys()))
+async def _(session: CommandSession):
+    """
+    获取星座运势
+    """
     msg_txt = session.ctx.raw_message
-    reply_txt = "\n请@我并发送星座名\n例如 <@运势小助手 白羊>"
-    if msg_txt.find('白羊') != -1:
-        reply_txt = await get_horoscope('aries')
-    elif msg_txt.find('金牛') != -1:
-        reply_txt = await get_horoscope('taurus')
-    elif msg_txt.find('双子') != -1:
-        reply_txt = await get_horoscope('gemini')
-    elif msg_txt.find('巨蟹') != -1:
-        reply_txt = await get_horoscope('cancer')
-    elif msg_txt.find('狮子') != -1:
-        reply_txt = await get_horoscope('leo')
-    elif msg_txt.find('处女') != -1:
-        reply_txt = await get_horoscope('virgo')
-    elif msg_txt.find('天秤') != -1:
-        reply_txt = await get_horoscope('libra')
-    elif msg_txt.find('天蝎') != -1:
-        reply_txt = await get_horoscope('scorpio')
-    elif msg_txt.find('射手') != -1:
-        reply_txt = await get_horoscope('sagittarius')
-    elif msg_txt.find('摩羯') != -1:
-        reply_txt = await get_horoscope('capricorn')
-    elif msg_txt.find('水瓶') != -1:
-        reply_txt = await get_horoscope('aquarius')
-    elif msg_txt.find('双鱼') != -1:
-        reply_txt = await get_horoscope('pisces')
+    reply_txt = ""
+    for chinese_name, english_name in horoscope_mapping.items():
+        if chinese_name in msg_txt:
+            if not english_name:
+                reply_txt = "请@我并发送星座名\n例如 <@运势小助手 白羊>"
+            else:
+                reply_txt = await get_horoscope(english_name)
+            break
     await session.send("\n" + reply_txt, at_sender=True)
 
 
-@on_natural_language(
-    keywords={'白羊', '金牛', '双子', '巨蟹', '狮子', '处女', '天秤', '天蝎', '射手', '摩羯', '水瓶', '双鱼'})
+@on_natural_language(keywords=set(horoscope_mapping.keys()))
 async def _(session: NLPSession):
-    # 返回意图命令，前两个参数必填，分别表示置信度和意图命令名
     return IntentCommand(90.0, 'horoscope')

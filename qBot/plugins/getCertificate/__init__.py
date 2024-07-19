@@ -1,35 +1,46 @@
 from aiocqhttp import MessageSegment
 from nonebot import on_command, CommandSession, NLPSession, on_natural_language, IntentCommand
 
-from qBot import untils
-from qBot.plugins.getCertificate.get_certificate import get_good_news, get_bad_news
+from qBot import api
 
 
 @on_command('good_news', aliases='喜报')
-async def sign(session: CommandSession):
+async def _(session: CommandSession):
     """
     获取喜报
     """
+    msg = session.current_arg_text.strip()
+    if not msg:
+        msg = (await session.aget(prompt='请输入喜报内容')).strip()
+        if not msg:
+            await session.send('喜报内容不能为空呢，请重新发起命令')
+            return
     msg_id = await session.send(message="正在生成,请耐心等待...")
-    img_path = await get_good_news(session.current_arg_text)
-    if img_path == "生成喜报失败":
-        await session.send(message=img_path, at_sender=True)
-    else:
-        await session.send(MessageSegment.image(untils.img_to_base64(img_path)))
+    img_url = api.PETPET_URL + "?key=certificate&textList=" + msg
+    try:
+        await session.send(MessageSegment.image(img_url))
+    except:
+        await session.send(MessageSegment.image("生成喜报失败"))
     await session.bot.delete_msg(message_id=msg_id['message_id'])
 
 
 @on_command('bad_news', aliases='悲报')
-async def sign(session: CommandSession):
+async def _(session: CommandSession):
     """
     获取悲报
     """
+    msg = session.current_arg_text.strip()
+    if not msg:
+        msg = (await session.aget(prompt='请输入悲报内容')).strip()
+        if not msg:
+            await session.send('悲报内容不能为空呢，请重新发起命令')
+            return
     msg_id = await session.send(message="正在生成,请耐心等待...")
-    img_path = await get_bad_news(session.current_arg_text)
-    if img_path == "生成悲报失败":
-        await session.send(message=img_path, at_sender=True)
-    else:
-        await session.send(MessageSegment.image(untils.img_to_base64(img_path)))
+    img_url = api.PETPET_URL + "?key=sad_news&textList=" + msg
+    try:
+        await session.send(MessageSegment.image(img_url))
+    except:
+        await session.send(MessageSegment.image("生成悲报失败"))
     await session.bot.delete_msg(message_id=msg_id['message_id'])
 
 

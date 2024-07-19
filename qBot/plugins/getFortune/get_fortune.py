@@ -6,9 +6,10 @@ import requests
 from qBot.plugins import config
 
 
-async def get_fortune() -> str:
+async def get_fortune(tag: bool) -> str:
     """
     获取今日运势
+    :param tag: 是否为定时任务
     """
     FORTUNE_URL = "https://m.weibo.cn/api/container/getIndex?type=uid&value=7230522444&containerid=1076037230522444"
     try:
@@ -27,9 +28,10 @@ async def get_fortune() -> str:
                     txt = card['mblog']['text']
                     if wbTime_weekday == current_weekday:
                         if txt.find("播报") != -1:
-                            f = open(config.DATA_DIR + "/cache/week.cache", "w")
-                            f.write(str(current_weekday))
-                            f.close()
+                            if tag:
+                                f = open(config.DATA_DIR + "/cache/week.cache", "w")
+                                f.write(str(current_weekday))
+                                f.close()
                             if wbTime_day == current_day:
                                 return "\n" + txt.replace("<br />", "\n")
         else:

@@ -2,7 +2,7 @@ import json
 import os
 import random
 
-from qBot import untils
+from qBot import utils
 from qBot.plugins import config
 
 
@@ -15,7 +15,7 @@ async def get_sign(sender: str) -> str:
     try:
         f = open(config.DATA_DIR + '\\cache\\qq\\' + sender + '.cache', 'r', encoding='utf-8')
         json_txt = json.loads(f.read())
-        if untils.get_now_date() != json_txt['date']:
+        if utils.get_now_date() != json_txt['date']:
             return get_sign_txt(sender)['sign']
         else:
             return json_txt['sign']
@@ -30,7 +30,7 @@ def get_sign_txt(sender):
     """
     f = open(os.path.join(config.DATA_DIR, '诸葛神签.txt'), 'r', encoding='utf-8')
     json_txt = {
-        'date': untils.get_now_date(),
+        'date': utils.get_now_date(),
         'sign': "\n" + random.choice(f.readlines()).replace('\n', '')
     }
     f.close()

@@ -1,8 +1,8 @@
-from nonebot import on_command, CommandSession, logger
+from nonebot import on_command, CommandSession
 
 
 @on_command('like', aliases=('赞我', '点赞名片'))
-async def send_like(session: CommandSession):
+async def _(session: CommandSession):
     try:
         await session.bot.send_like(user_id=session.ctx.user_id, times=10)
         msg = "点赞已完成"

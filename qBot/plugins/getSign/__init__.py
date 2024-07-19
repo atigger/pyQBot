@@ -4,7 +4,7 @@ from qBot.plugins.getSign.get_sign import get_sign
 
 
 @on_command('sign', aliases=('求签', '诸葛神签'))
-async def sign(session: CommandSession):
+async def _(session: CommandSession):
     """
     获取诸葛神签
     """

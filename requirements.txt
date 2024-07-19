@@ -4,3 +4,6 @@ aiocqhttp~=1.4.4
 pyyaml~=6.0.1
 nonebot[scheduler]
 ollama~=0.2.1
+baidu-aip
+chardet
+requests~=2.32.3

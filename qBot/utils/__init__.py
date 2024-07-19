@@ -1,8 +1,12 @@
+import asyncio
 import base64
 import os.path
 import time
+
 import httpx
-from nonebot import logger
+from nonebot import logger, get_bot
+
+from qBot import api
 
 
 def get_now_date():
@@ -53,3 +57,28 @@ def mkdir(dir_path):
         os.mkdir(dir_path)
     except FileExistsError:
         pass
+
+
+async def generate_picture_url(key: str, text: str, type: str):
+    """
+    生成图片
+    :param key: 键
+    :param text: 文本
+    :param type: 类型
+    """
+    URL = ""
+    if type == "txt":
+        URL = api.PETPET_URL + "?key=" + key + "&textList=" + text
+    elif type == "img" or type == "gif":
+        URL = api.PETPET_URL + "?key=" + key + "&toAvatar=" + text
+    return URL
+
+
+async def delay_delete(message_id, wait_time):
+    """
+    等待撤回消息
+    :param message_id: 消息ID
+    :param wait_time: 等待时间
+    """
+    await asyncio.sleep(wait_time)
+    await get_bot().delete_msg(message_id=message_id)  # 撤回消息

@@ -1,14 +1,13 @@
 import asyncio
 import time
-from time import sleep
 
 import nonebot
 from aiocqhttp.exceptions import Error as CQHttpError
 
 from qBot import api
+from qBot import utils
 from qBot.plugins import config
 from qBot.plugins.getFortune import get_fortune
-from qBot import untils
 from qBot.plugins.getNews import get_news
 
 
@@ -32,7 +31,7 @@ async def auto_fortune():
         f.close()
     if current_weekday == int(cache_weekday):
         return
-    fortune_txt: str = await get_fortune()
+    fortune_txt: str = await get_fortune(True)
     fortune_txt = fortune_txt.replace("\n", "", 1)
     if fortune_txt.find("获取运势失败") != -1:
         return
@@ -55,8 +54,8 @@ async def auto_fish():
     """
     if config.ENABLE_AUTO_FORTUNE is False:
         return
-    file_path = config.DATA_DIR + "/cache/mofish/" + untils.get_now_date() + ".jpg"
-    downLoad_tag = await untils.downLoadFile(api.FISH_URL, file_path)
+    file_path = config.DATA_DIR + "/cache/mofish/" + utils.get_now_date() + ".jpg"
+    downLoad_tag = await utils.downLoadFile(api.FISH_URL, file_path)
     if downLoad_tag:
         await send_img_to_group(file_path)
 
@@ -81,7 +80,7 @@ async def send_img_to_group(img_path):
     :param img_path: 图片路径
     :return:
     """
-    base64_data = untils.img_to_base64(img_path)
+    base64_data = utils.img_to_base64(img_path)
     bot = nonebot.get_bot()
     send_group_list = config.GROUP_LIST
     for group_id in send_group_list:

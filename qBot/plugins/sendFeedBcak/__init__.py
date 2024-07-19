@@ -1,11 +1,10 @@
-from aiocqhttp import Event
 from nonebot import on_command, CommandSession, NLPSession, on_natural_language, IntentCommand
 
 from qBot.plugins import config
 
 
 @on_command('feed_back', aliases='反馈')
-async def feed_back(session: CommandSession):
+async def _(session: CommandSession):
     """
     反馈
     """

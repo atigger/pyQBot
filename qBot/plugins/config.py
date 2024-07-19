@@ -3,11 +3,11 @@ import os
 import httpx
 import yaml
 
-from qBot import api, untils
+from qBot import api, utils
 
 CONFIG_DIR = os.path.join(os.path.dirname(__file__), 'config')
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-VERSION = '0.0.2'
+VERSION = '1.0.0'
 
 
 async def init_data():
@@ -15,18 +15,20 @@ async def init_data():
     初始化数据
     :return:
     """
-    untils.mkdir(DATA_DIR)
-    untils.mkdir(DATA_DIR + '/cache')
-    untils.mkdir(DATA_DIR + '/cache/qq')
-    untils.mkdir(DATA_DIR + '/cache/group')
-    untils.mkdir(DATA_DIR + '/cache/news')
-    untils.mkdir(DATA_DIR + '/cache/mofish')
-    untils.mkdir(DATA_DIR + '/cache/image')
-    untils.mkdir(CONFIG_DIR)
+    utils.mkdir(DATA_DIR)
+    utils.mkdir(DATA_DIR + '/cache')
+    utils.mkdir(DATA_DIR + '/cache/qq')
+    utils.mkdir(DATA_DIR + '/cache/group')
+    utils.mkdir(DATA_DIR + '/cache/news')
+    utils.mkdir(DATA_DIR + '/cache/mofish')
+    utils.mkdir(DATA_DIR + '/cache/image')
+    utils.mkdir(DATA_DIR + '/cache/hero')
+    utils.mkdir(DATA_DIR + '/cache/voice')
+    utils.mkdir(CONFIG_DIR)
     if os.path.exists(os.path.join(DATA_DIR, '诸葛神签.txt')) is False:
-        await untils.downLoadFile(api.ZHU_GE_URL, os.path.join(DATA_DIR, '诸葛神签.txt'))
+        await utils.downLoadFile(api.ZHU_GE_URL, os.path.join(DATA_DIR, '诸葛神签.txt'))
     if os.path.exists(os.path.join(CONFIG_DIR, 'setting.yml')) is False:
-        await untils.downLoadFile(api.SETTING_URL, os.path.join(CONFIG_DIR, 'setting.yml'))
+        await utils.downLoadFile(api.SETTING_URL, os.path.join(CONFIG_DIR, 'setting.yml'))
 
 
 def read_yaml_file(file_path):
@@ -44,3 +46,6 @@ GROUP_LIST = read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))['Auto']['Gr
 ENABLE_AUTO_FORTUNE = bool(read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))['Auto']['AutoFortune'])
 ENABLE_AUTO_NEWS = bool(read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))['Auto']['AutoNews'])
 ENABLE_AUTO_TIPS = bool(read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))['Auto']['AutoTips'])
+APP_ID = read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))['BaiDuAPI']['APP_ID']
+API_KEY = read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))['BaiDuAPI']['API_KEY']
+SECRET_KEY = read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))['BaiDuAPI']['SECRET_KEY']

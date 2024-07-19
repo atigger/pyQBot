@@ -1,5 +1,4 @@
 import asyncio
-from time import sleep
 
 from nonebot import on_command, CommandSession, permission
 
@@ -7,7 +6,7 @@ from qBot.plugins import config
 
 
 @on_command('send_msg_in_groups', aliases=('群发', '通知'), permission=permission.SUPERUSER)
-async def send_msg_in_groups(session: CommandSession):
+async def _(session: CommandSession):
     msg = session.current_arg_text.strip()
     if not msg:
         msg = (await session.aget(prompt='请输入需要群发的内容')).strip()
