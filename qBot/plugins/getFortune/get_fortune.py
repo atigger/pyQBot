@@ -3,10 +3,8 @@ from datetime import datetime
 
 import requests
 
-from qBot.plugins import config
 
-
-async def get_fortune(tag: bool) -> str:
+async def get_fortune() -> str:
     """
     获取今日运势
     :param tag: 是否为定时任务
@@ -28,10 +26,6 @@ async def get_fortune(tag: bool) -> str:
                     txt = card['mblog']['text']
                     if wbTime_weekday == current_weekday:
                         if txt.find("播报") != -1:
-                            if tag:
-                                f = open(config.DATA_DIR + "/cache/week.cache", "w")
-                                f.write(str(current_weekday))
-                                f.close()
                             if wbTime_day == current_day:
                                 return "\n" + txt.replace("<br />", "\n")
         else:

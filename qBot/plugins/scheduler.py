@@ -31,10 +31,13 @@ async def auto_fortune():
         f.close()
     if current_weekday == int(cache_weekday):
         return
-    fortune_txt: str = await get_fortune(True)
+    fortune_txt: str = await get_fortune()
     fortune_txt = fortune_txt.replace("\n", "", 1)
     if fortune_txt.find("获取运势失败") != -1:
         return
+    f = open(config.DATA_DIR + "/cache/week.cache", "w")
+    f.write(str(current_weekday))
+    f.close()
     bot = nonebot.get_bot()
     send_group_list = config.GROUP_LIST
     for group_id in send_group_list:

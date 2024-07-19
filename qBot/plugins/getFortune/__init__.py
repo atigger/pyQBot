@@ -8,5 +8,5 @@ async def _(session: CommandSession):
     """
     获取今日运势
     """
-    fortune_txt = await get_fortune(False)
+    fortune_txt = await get_fortune()
     await session.send(message=fortune_txt, at_sender=True)
