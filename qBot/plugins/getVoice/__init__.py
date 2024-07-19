@@ -17,7 +17,7 @@ async def _(session: CommandSession):
     await session.send(await get_voice(txt))
 
 
-@on_natural_language(keywords={'说'})
+@on_natural_language(keywords={'说', '语音系统'})
 async def _(session: NLPSession):
     # 去掉消息首尾的空白符
     stripped_msg = session.msg_text.strip()
@@ -25,4 +25,7 @@ async def _(session: NLPSession):
     if stripped_msg.startswith('说'):
         args = stripped_msg.replace('说', '', 1)
         return IntentCommand(90.0, 'voice', current_arg=args)
+    if stripped_msg.startswith('语音系统'):
+        await session.send('使用“说”命令即可发送语音')
+        return
     return IntentCommand(90.0, 'voice')
