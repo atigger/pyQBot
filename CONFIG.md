@@ -20,9 +20,9 @@ AgreeGroup: false
 #ollama模型名称
 #ollama模型地址
 AI:
-  ENABLE: false
-  MODEL_NAME: ""
-  MODEL_URL: ""
+  Enable: false
+  ModelName: ""
+  ModelUrl: ""
 #自动化操作
 Auto:
   #自动发送运势信息
