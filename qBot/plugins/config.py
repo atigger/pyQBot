@@ -72,7 +72,7 @@ async def update_config():
     """
     config_path = os.path.join(CONFIG_DIR, 'setting.yml')
     config_data = read_yaml_file(config_path)
-    if config_data['Version'] == CONFIG_VERSION:
+    if str(config_data['Version']) == CONFIG_VERSION:
         return
     logger.info("升级配置文件")
     # 读取老配置项
