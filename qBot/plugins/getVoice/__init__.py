@@ -10,8 +10,8 @@ async def _(session: CommandSession):
     """
     txt = session.current_arg_text.strip()
     if not txt:
-        txt1 = (await session.aget(prompt='请输入你想说的内容')).strip()
-        if not txt1:
+        txt = (await session.aget(prompt='请输入你想说的内容')).strip()
+        if not txt:
             await session.send('内容不能为空呢，请重新发起命令')
             return
     await session.send(await get_voice(txt))
