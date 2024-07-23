@@ -24,6 +24,7 @@ async def ollama_ai(group_id: int, user_id: int, message_id: int, message: str):
 
 
 async def lolimi_ai(group_id: int, user_id: int, message_id: int, message: str):
+    error_msg = "网络太拥挤," + bot_name + "已经坏掉啦，请稍后再试" + MessageSegment.face(354)
     if config.MODEL_NAME == "沫沫":
         url = api.MomoURL + message
     else:
@@ -36,8 +37,10 @@ async def lolimi_ai(group_id: int, user_id: int, message_id: int, message: str):
                 r = await client.get(url, timeout=60)
                 response = r.json()
             reply_msg = response['data']['output'].replace("沫沫", bot_name).replace("婧枫", bot_name)
+            if reply_msg == "":
+                reply_msg = error_msg
         except:
-            reply_msg = "网络太拥挤," + bot_name + "已经坏掉啦，请稍后再试" + MessageSegment.face(354)
+            reply_msg = error_msg
         await get_bot().send_msg(message=MessageSegment.reply(message_id) + reply_msg, user_id=user_id)
         await get_bot().delete_msg(message_id=think_msg['message_id'])
     else:
@@ -48,8 +51,10 @@ async def lolimi_ai(group_id: int, user_id: int, message_id: int, message: str):
                 r = await client.get(url, timeout=60)
                 response = r.json()
             reply_msg = response['data']['output'].replace("沫沫", bot_name).replace("婧枫", bot_name)
+            if reply_msg == "":
+                reply_msg = error_msg
         except:
-            reply_msg = "网络太拥挤," + bot_name + "已经坏掉啦，请稍后再试" + MessageSegment.face(354)
+            reply_msg = error_msg
         await get_bot().send_group_msg(message=MessageSegment.reply(message_id) + reply_msg, group_id=group_id)
         await get_bot().delete_msg(message_id=think_msg['message_id'])
         pass
