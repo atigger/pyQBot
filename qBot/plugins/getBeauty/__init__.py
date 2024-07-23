@@ -27,7 +27,7 @@ async def _(session: CommandSession):
     """
     以合并转发的形式发送美女图片
     """
-    tips_msg = await session.send("请耐心等待上传...")
+    tips_msg = await session.send("正在祈祷中......")
     url = "https://img.0705.fun/mn.php?token=" + config.APP_ID
     images = [MessageSegment.image(url), MessageSegment.image(url),
               MessageSegment.image(url)]

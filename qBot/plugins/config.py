@@ -8,7 +8,7 @@ from qBot import api, utils
 
 CONFIG_DIR = os.path.join(os.path.dirname(__file__), 'config')
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-VERSION = '1.1.0'
+VERSION = '1.2.0'
 CONFIG_VERSION = '1.1'
 yaml = YAML()
 
@@ -27,6 +27,7 @@ async def init_data():
     utils.mkdir(DATA_DIR + '/cache/image')
     utils.mkdir(DATA_DIR + '/cache/hero')
     utils.mkdir(DATA_DIR + '/cache/voice')
+    utils.mkdir(DATA_DIR + '/cache/tarot')
     utils.mkdir(CONFIG_DIR)
     if os.path.exists(os.path.join(DATA_DIR, '诸葛神签.txt')) is False:
         await utils.downLoadFile(api.ZHU_GE_URL, os.path.join(DATA_DIR, '诸葛神签.txt'))

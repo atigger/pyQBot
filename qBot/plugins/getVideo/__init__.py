@@ -13,7 +13,7 @@ async def _(session: CommandSession):
     """
     获取美女视频
     """
-    tips_msg = await session.send("请耐心等待上传...")
+    tips_msg = await session.send("正在祈祷中......")
     video_url = await get_video()
     video_msg = await session.send(MessageSegment.video(video_url))
     await session.bot.delete_msg(message_id=tips_msg['message_id'])

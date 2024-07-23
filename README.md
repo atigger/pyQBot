@@ -45,6 +45,10 @@
 
 - [x] [ollama](https://github.com/ollama/ollama)
 
+- [x] [抽塔罗牌](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot)
+
+- [x] 抽老婆
+
 - [ ] 
   群管理插件（关键字撤回、自动审核入群申请）[帮助文档](https://pyqbot.miraiqbot.top/#/?id=%e8%b6%85%e7%ba%a7%e7%ae%a1%e7%90%86%e5%91%98)
 
@@ -54,11 +58,13 @@ Tips:有想要的新功能可以提交issue
 
 更新日志：
 
-2024年7月19日v1.1.0更新
+2024年7月23日v1.2.0更新
 
-1.新增ollama支持,详见[配置文件](CONFIG.md)
+1.新增抽塔罗牌,资源来自[nonebot_plugin_tarot](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot)
 
-2.优化了语音发送逻辑
+2.新增抽二次元老婆
+
+2.优化了一些问题
 
 ---
 [更新历史](UPDATE.md)

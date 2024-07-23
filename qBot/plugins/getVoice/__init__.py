@@ -22,10 +22,9 @@ async def _(session: NLPSession):
     # 去掉消息首尾的空白符
     stripped_msg = session.msg_text.strip()
     # 判断消息是否以 '说' 开头，是则返回意图命令
+    args = ""
     if stripped_msg.startswith('说'):
         args = stripped_msg.replace('说', '', 1)
-        return IntentCommand(90.0, 'voice', current_arg=args)
     if stripped_msg.startswith('语音系统'):
-        await session.send('使用“说”命令即可发送语音')
-        return
-    return IntentCommand(90.0, 'voice')
+        args = stripped_msg.replace('语音系统', '', 1)
+    return IntentCommand(90.0, 'voice', current_arg=args)

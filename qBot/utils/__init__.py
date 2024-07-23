@@ -2,7 +2,7 @@ import asyncio
 import base64
 import os.path
 import time
-
+from PIL import Image
 import httpx
 from nonebot import logger, get_bot
 
@@ -82,3 +82,31 @@ async def delay_delete(message_id, wait_time):
     """
     await asyncio.sleep(wait_time)
     await get_bot().delete_msg(message_id=message_id)  # 撤回消息
+
+
+async def turn_image(image_path):
+    """
+    图片旋转
+    :param image_path: 图片路径
+    :return: 旋转后的图片路径
+    """
+    # Load the image
+    image = Image.open(image_path)
+
+    # Rotate the image by 180 degrees
+    rotated_image = image.rotate(180)
+
+    # Split the path to extract directory, filename, and extension
+    dir_name, file_name = os.path.split(image_path)
+    file_root, file_ext = os.path.splitext(file_name)
+
+    # Append the suffix "-逆位" to the filename
+    new_file_name = f"{file_root}-逆位{file_ext}"
+
+    # Combine to form the new path
+    new_image_path = os.path.join(dir_name, new_file_name)
+
+    # Save the rotated image to the new path
+    rotated_image.save(new_image_path)
+
+    return new_image_path

@@ -1,7 +1,7 @@
 from nonebot import on_command, CommandSession
 
 
-@on_command('like', aliases=('赞我', '点赞名片'))
+@on_command('like', aliases=('赞我', '点赞名片'), only_to_me=False)
 async def _(session: CommandSession):
     try:
         await session.bot.send_like(user_id=session.ctx.user_id, times=10)
