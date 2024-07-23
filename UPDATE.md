@@ -1,3 +1,11 @@
+2024年7月23日v1.2.0更新
+
+1.新增抽塔罗牌,资源来自[nonebot_plugin_tarot](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot)
+
+2.新增抽二次元老婆
+
+3.优化了一些问题
+
 2024年7月19日v1.1.0更新
 
 1.新增ollama支持,详见[配置文件](CONFIG.md)

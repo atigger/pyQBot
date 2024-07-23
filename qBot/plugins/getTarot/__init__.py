@@ -3,7 +3,7 @@ from nonebot import on_command, CommandSession
 from qBot.plugins.getTarot.get_tarot import get_tarot
 
 
-@on_command('tarot', aliases='抽塔罗牌')
+@on_command('tarot', aliases=('抽塔罗牌', '塔罗牌'))
 async def _(session: CommandSession):
     """
     抽塔罗牌

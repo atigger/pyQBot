@@ -8,8 +8,8 @@ from qBot import api, utils
 
 CONFIG_DIR = os.path.join(os.path.dirname(__file__), 'config')
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-VERSION = '1.2.0'
-CONFIG_VERSION = '1.1'
+VERSION = '1.2.5'
+CONFIG_VERSION = '1.2'
 yaml = YAML()
 
 
@@ -88,6 +88,10 @@ async def update_config():
     SECRET_KEY1 = read_config('BaiDuAPI', 'SECRET_KEY')
     AGREE_FRIEND1 = read_config('AgreeFriend')
     AGREE_GROUP1 = read_config('AgreeGroup')
+    AI_ENABLE1 = read_config('AI', 'Enable')
+    MODEL_URL1 = read_config("AI", 'ModelUrl')
+    MODEL_NAME1 = read_config("AI", 'ModelName')
+    NICKNAME1 = read_config('NickName')
     # 删除之前的配置文件
     os.remove(config_path)
     # 更新配置文件
@@ -105,6 +109,11 @@ async def update_config():
     config_data['BaiDuAPI']['SECRET_KEY'] = SECRET_KEY1
     config_data['AgreeFriend'] = AGREE_FRIEND1
     config_data['AgreeGroup'] = AGREE_GROUP1
+    config_data['AI']['Enable'] = AI_ENABLE1
+    config_data['AI']['ModelUrl'] = MODEL_URL1
+    config_data['AI']['ModelName'] = MODEL_NAME1
+    config_data['NickName'] = NICKNAME1
+
     with open(config_path, 'w', encoding="utf-8") as file:
         yaml.dump(config_data, file)
 
@@ -123,3 +132,4 @@ AGREE_GROUP = read_config('AgreeGroup')
 AI_ENABLE = read_config('AI', 'Enable')
 MODEL_URL = read_config("AI", 'ModelUrl')
 MODEL_NAME = read_config("AI", 'ModelName')
+NICKNAME = read_config('NickName')

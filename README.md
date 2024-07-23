@@ -43,7 +43,9 @@
 
 - [x] 王者战力查询
 
-- [x] [ollama](https://github.com/ollama/ollama)
+- [x] AI智能回复 接入[ollama](https://github.com/ollama/ollama)与[桑帛云](https://api.lolimi.cn/)
+
+- 如需使用桑帛云AI请在配置ModelName配置为`沫沫`或`婧枫`
 
 - [x] [抽塔罗牌](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot)
 
@@ -58,11 +60,9 @@ Tips:有想要的新功能可以提交issue
 
 更新日志：
 
-2024年7月23日v1.2.0更新
+2024年7月23日v1.2.5更新
 
-1.新增抽塔罗牌,资源来自[nonebot_plugin_tarot](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot)
-
-2.新增抽二次元老婆
+1.新增[桑帛云AI](https://api.lolimi.cn/)
 
 2.优化了一些问题
 
