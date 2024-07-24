@@ -1,3 +1,9 @@
+2024年7月23日v1.2.5更新
+
+1.新增[桑帛云AI](https://api.lolimi.cn/)
+
+2.优化了一些问题
+
 2024年7月23日v1.2.0更新
 
 1.新增抽塔罗牌,资源来自[nonebot_plugin_tarot](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot)
