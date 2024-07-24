@@ -25,15 +25,18 @@ async def downLoadFile(url, file_path):
     :param file_path: 保存路径
     :return True: 下载成功 False: 下载失败
     """
-    async with httpx.AsyncClient() as client:
-        r = await client.get(url, timeout=30)
-        with open(file_path, "wb") as f:
-            f.write(r.content)
-        logger.info("下载:" + os.path.basename(file_path) + "完成")
-        if os.path.exists(file_path) is False:
-            logger.info("下载失败")
-            return False
-        return True
+    try:
+        async with httpx.AsyncClient() as client:
+            r = await client.get(url, timeout=60)
+            with open(file_path, "wb") as f:
+                f.write(r.content)
+            logger.info("下载:" + os.path.basename(file_path) + "完成")
+            if os.path.exists(file_path) is False:
+                logger.info("下载失败")
+                return False
+            return True
+    except:
+        return False
 
 
 def img_to_base64(img_path):
