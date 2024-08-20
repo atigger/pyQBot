@@ -26,9 +26,11 @@ async def ollama_ai(group_id: int, user_id: int, message_id: int, message: str):
 async def lolimi_ai(group_id: int, user_id: int, message_id: int, message: str):
     error_msg = "网络太拥挤," + bot_name + "已经坏掉啦，请稍后再试" + MessageSegment.face(354)
     if config.MODEL_NAME == "沫沫":
-        url = api.MomoURL + message
+        url = api.MomoURL + message + "&key=" + config.AI_KEY
+    elif config.MODEL_NAME == "婧枫":
+        url = api.JingfengURL + message + "&key=" + config.AI_KEY
     else:
-        url = api.JingfengURL + message
+        return
     if group_id is None:
         think_msg = await get_bot().send_msg(message=bot_name + "正在思考中" + MessageSegment.face(355),
                                              user_id=user_id)

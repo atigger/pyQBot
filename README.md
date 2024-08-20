@@ -45,7 +45,7 @@
 
 - [x] AI智能回复 接入[ollama](https://github.com/ollama/ollama)与[桑帛云](https://api.lolimi.cn/)
 
-- 如需使用桑帛云AI请在配置ModelName配置为`沫沫`或`婧枫`
+- 如需使用桑帛云AI请将ModelName配置为`沫沫`或`婧枫`
 
 - [x] [抽塔罗牌](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot)
 
@@ -60,11 +60,9 @@ Tips:有想要的新功能可以提交issue
 
 更新日志：
 
-2024年7月24日v1.2.6更新
+2024年8月20日v1.2.7更新
 
-1.修复抽塔罗牌逆位不旋转的问题
-
-2.优化了一些问题
+1.更新桑帛云AI，需要使用使用[Key](https://apii.lolimi.cn)
 
 ---
 [更新历史](UPDATE.md)

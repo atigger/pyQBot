@@ -1,7 +1,7 @@
 配置文件模板
 ```yaml
 #配置文件版本
-Version: 1.2
+Version: 1.3
 #机器人昵称
 NickName: ''
 #管理员QQ
@@ -25,6 +25,7 @@ AI:
   Enable: false
   ModelName: ''
   ModelUrl: ''
+  Key: ''
 #自动化操作
 Auto:
   #自动发送运势信息

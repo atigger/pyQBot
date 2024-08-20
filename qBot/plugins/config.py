@@ -8,8 +8,8 @@ from qBot import api, utils
 
 CONFIG_DIR = os.path.join(os.path.dirname(__file__), 'config')
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-VERSION = '1.2.6'
-CONFIG_VERSION = '1.2'
+VERSION = '1.2.7'
+CONFIG_VERSION = '1.3'
 yaml = YAML()
 
 
@@ -91,6 +91,7 @@ async def update_config():
     AI_ENABLE1 = read_config('AI', 'Enable')
     MODEL_URL1 = read_config("AI", 'ModelUrl')
     MODEL_NAME1 = read_config("AI", 'ModelName')
+    AI_KEY1 = read_config("AI", 'Key')
     NICKNAME1 = read_config('NickName')
     # 删除之前的配置文件
     os.remove(config_path)
@@ -112,6 +113,7 @@ async def update_config():
     config_data['AI']['Enable'] = AI_ENABLE1
     config_data['AI']['ModelUrl'] = MODEL_URL1
     config_data['AI']['ModelName'] = MODEL_NAME1
+    config_data['AI']['Key'] = AI_KEY1
     config_data['NickName'] = NICKNAME1
 
     with open(config_path, 'w', encoding="utf-8") as file:
@@ -132,4 +134,5 @@ AGREE_GROUP = read_config('AgreeGroup')
 AI_ENABLE = read_config('AI', 'Enable')
 MODEL_URL = read_config("AI", 'ModelUrl')
 MODEL_NAME = read_config("AI", 'ModelName')
+AI_KEY = read_config("AI", 'Key')
 NICKNAME = read_config('NickName')
