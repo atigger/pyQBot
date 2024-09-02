@@ -25,7 +25,7 @@ async def get_fortune() -> str:
                     current_day = time.localtime().tm_mday
                     txt = card['mblog']['text']
                     if wbTime_weekday == current_weekday:
-                        if txt.find("播报") != -1:
+                        if txt.find("公元") != -1:
                             if wbTime_day == current_day:
                                 return "\n" + txt.replace("<br />", "\n")
         else:
