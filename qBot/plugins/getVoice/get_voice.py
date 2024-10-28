@@ -1,3 +1,4 @@
+import os
 import time
 
 from aiocqhttp import MessageSegment
@@ -22,7 +23,7 @@ async def get_voice(txt):
     client.setSocketTimeoutInMillis(60000)
     result = client.synthesis(txt, "zh", 1)
     if not isinstance(result, dict):
-        mp3_path = config.DATA_DIR.join('cache', 'voice', str(int(round(time.time() * 1000))) + '.mp3')
+        mp3_path = os.path.join(config.DATA_DIR, 'cache', 'voice', str(int(round(time.time() * 1000))) + '.mp3')
         with open(mp3_path, 'wb') as f:
             f.write(result)
         return MessageSegment.record(mp3_path)
