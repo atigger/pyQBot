@@ -22,11 +22,11 @@ async def auto_fortune():
     current_weekday = time.localtime().tm_wday
     cache_weekday = -1
     try:
-        f = open(config.DATA_DIR + "/cache/week.cache", "r")
+        f = open(config.DATA_DIR.join('cache', 'week.cache'), "r")
         cache_weekday = f.read()
         f.close()
     except Exception as e:
-        f = open(config.DATA_DIR + "/cache/week.cache", "w")
+        f = open(config.DATA_DIR.join('cache', 'week.cache'), "w")
         f.write(str(-1))
         f.close()
     if current_weekday == int(cache_weekday):
@@ -35,7 +35,7 @@ async def auto_fortune():
     fortune_txt = fortune_txt.replace("\n", "", 1)
     if fortune_txt.find("获取运势失败") != -1:
         return
-    f = open(config.DATA_DIR + "/cache/week.cache", "w")
+    f = open(config.DATA_DIR.join('cache', 'week.cache'), "w")
     f.write(str(current_weekday))
     f.close()
     bot = nonebot.get_bot()
@@ -57,7 +57,7 @@ async def auto_fish():
     """
     if config.ENABLE_AUTO_FORTUNE is False:
         return
-    file_path = config.DATA_DIR + "/cache/mofish/" + utils.get_now_date() + ".jpg"
+    file_path = config.DATA_DIR.join('cache', 'mofish', utils.get_now_date() + ".jpg")
     downLoad_tag = await utils.downLoadFile(api.FISH_URL, file_path)
     if downLoad_tag:
         await send_img_to_group(file_path)

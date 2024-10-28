@@ -8,7 +8,7 @@ from qBot import api, utils
 
 CONFIG_DIR = os.path.join(os.path.dirname(__file__), 'config')
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-VERSION = '1.2.8'
+VERSION = '1.2.9'
 CONFIG_VERSION = '1.3'
 yaml = YAML()
 
@@ -19,15 +19,15 @@ async def init_data():
     :return:
     """
     utils.mkdir(DATA_DIR)
-    utils.mkdir(DATA_DIR + '/cache')
-    utils.mkdir(DATA_DIR + '/cache/qq')
-    utils.mkdir(DATA_DIR + '/cache/group')
-    utils.mkdir(DATA_DIR + '/cache/news')
-    utils.mkdir(DATA_DIR + '/cache/mofish')
-    utils.mkdir(DATA_DIR + '/cache/image')
-    utils.mkdir(DATA_DIR + '/cache/hero')
-    utils.mkdir(DATA_DIR + '/cache/voice')
-    utils.mkdir(DATA_DIR + '/cache/tarot')
+    utils.mkdir(os.path.join(DATA_DIR, 'cache'))
+    utils.mkdir(os.path.join(DATA_DIR, 'cache', 'qq'))
+    utils.mkdir(os.path.join(DATA_DIR, 'cache', 'group'))
+    utils.mkdir(os.path.join(DATA_DIR, 'cache', 'news'))
+    utils.mkdir(os.path.join(DATA_DIR, 'cache', 'mofish'))
+    utils.mkdir(os.path.join(DATA_DIR, 'cache', 'image'))
+    utils.mkdir(os.path.join(DATA_DIR, 'cache', 'hero'))
+    utils.mkdir(os.path.join(DATA_DIR, 'cache', 'voice'))
+    utils.mkdir(os.path.join(DATA_DIR, 'cache', 'tarot'))
     utils.mkdir(CONFIG_DIR)
     if os.path.exists(os.path.join(DATA_DIR, '诸葛神签.txt')) is False:
         await utils.downLoadFile(api.ZHU_GE_URL, os.path.join(DATA_DIR, '诸葛神签.txt'))

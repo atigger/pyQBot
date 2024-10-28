@@ -13,7 +13,7 @@ async def get_sign(sender: str) -> str:
     :return 求签结果
     """
     try:
-        f = open(config.DATA_DIR + '\\cache\\qq\\' + sender + '.cache', 'r', encoding='utf-8')
+        f = open(config.DATA_DIR.join('cache', 'qq', sender + '.cache'), 'r', encoding='utf-8')
         json_txt = json.loads(f.read())
         if utils.get_now_date() != json_txt['date']:
             return get_sign_txt(sender)['sign']
@@ -34,7 +34,7 @@ def get_sign_txt(sender):
         'sign': "\n" + random.choice(f.readlines()).replace('\n', '')
     }
     f.close()
-    f = open(config.DATA_DIR + '\\cache\\qq\\' + sender + '.cache', 'w', encoding='utf-8')
+    f = open(config.DATA_DIR.join('cache', 'qq', sender + '.cache'), 'w', encoding='utf-8')
     f.write(json.dumps(json_txt))
     f.close()
     return json_txt
