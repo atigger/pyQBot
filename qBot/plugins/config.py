@@ -8,8 +8,8 @@ from qBot import api, utils
 
 CONFIG_DIR = os.path.join(os.path.dirname(__file__), 'config')
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-VERSION = '1.2.9'
-CONFIG_VERSION = '1.3'
+VERSION = '1.3.0'
+CONFIG_VERSION = '1.4'
 yaml = YAML()
 
 
@@ -51,19 +51,21 @@ def read_yaml_file(file_path):
         return yaml.load(file)
 
 
-def read_config(key, key2=None):
+def read_config(key, key2=None, default=None):
     """
-    读取某个配置项 如果读取失败 则返回空
+    读取某个配置项 如果读取失败 则返回默认值
     :param key: 键
     :param key2: 键2
+    :param default: 默认值
     """
     try:
+        config_data = read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))
         if key2 is None:
-            return read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))[key]
+            return config_data.get(key, default if default is not None else "")
         else:
-            return read_yaml_file(os.path.join(CONFIG_DIR, 'setting.yml'))[key][key2]
+            return config_data.get(key, {}).get(key2, default if default is not None else "")
     except:
-        return ""
+        return default if default is not None else ""
 
 
 async def update_config():
@@ -72,67 +74,93 @@ async def update_config():
     :return:
     """
     config_path = os.path.join(CONFIG_DIR, 'setting.yml')
-    config_data = read_yaml_file(config_path)
-    if str(config_data['Version']) == CONFIG_VERSION:
+    old_config = read_yaml_file(config_path)
+
+    if str(old_config.get('Version', '')) == CONFIG_VERSION:
         return
+
     logger.info("升级配置文件")
-    # 读取老配置项
-    SUPERUSERS1 = read_config('SuperUser')
-    RECALL_TIME1 = read_config('ImageRecall')
-    GROUP_LIST1 = read_config('Auto', 'Group')
-    ENABLE_AUTO_FORTUNE1 = read_config('Auto', 'AutoFortune')
-    ENABLE_AUTO_NEWS1 = read_config('Auto', 'AutoNews')
-    ENABLE_AUTO_TIPS1 = read_config('Auto', 'AutoTips')
-    APP_ID1 = read_config('BaiDuAPI', 'APP_ID')
-    API_KEY1 = read_config('BaiDuAPI', 'API_KEY')
-    SECRET_KEY1 = read_config('BaiDuAPI', 'SECRET_KEY')
-    AGREE_FRIEND1 = read_config('AgreeFriend')
-    AGREE_GROUP1 = read_config('AgreeGroup')
-    AI_ENABLE1 = read_config('AI', 'Enable')
-    MODEL_URL1 = read_config("AI", 'ModelUrl')
-    MODEL_NAME1 = read_config("AI", 'ModelName')
-    AI_KEY1 = read_config("AI", 'Key')
-    NICKNAME1 = read_config('NickName')
-    # 删除之前的配置文件
+
+    # 定义配置映射表，包含路径和默认值
+    config_mapping = {
+        'SuperUser': ([], ''),
+        'ImageRecall': ([], 0),
+        'AgreeFriend': ([], False),
+        'AgreeGroup': ([], False),
+        'NickName': ([], '机器人'),
+        ('Auto', 'Group'): (['Auto'], []),
+        ('Auto', 'AutoFortune'): (['Auto'], False),
+        ('Auto', 'AutoNews'): (['Auto'], False),
+        ('Auto', 'AutoTips'): (['Auto'], False),
+        ('BaiDuAPI', 'APP_ID'): (['BaiDuAPI'], ''),
+        ('BaiDuAPI', 'API_KEY'): (['BaiDuAPI'], ''),
+        ('BaiDuAPI', 'SECRET_KEY'): (['BaiDuAPI'], ''),
+        ('AI', 'Enable'): (['AI'], False),
+        ('AI', 'ModelUrl'): (['AI'], ''),
+        ('AI', 'ModelName'): (['AI'], ''),
+        ('AI', 'Key'): (['AI'], ''),
+        ('Notification', 'ApiUrl'): (['Notification'], ''),
+        ('Notification', 'EnableBotMonitor'): (['Notification'], False),
+        ('Fortune', 'Cookie'): (['Fortune'], '')
+    }
+
+    # 保存用户配置
+    user_config = {}
+    for key, (parent_keys, default_value) in config_mapping.items():
+        if isinstance(key, tuple):
+            # 嵌套配置
+            parent_key, child_key = key
+            value = old_config.get(parent_key, {}).get(child_key, default_value)
+            if parent_key not in user_config:
+                user_config[parent_key] = {}
+            user_config[parent_key][child_key] = value
+        else:
+            # 顶级配置
+            user_config[key] = old_config.get(key, default_value)
+
+    # 删除旧配置文件并下载新的
     os.remove(config_path)
-    # 更新配置文件
     await utils.downLoadFile(api.SETTING_URL, config_path)
-    # 写入配置文件
-    config_data = read_yaml_file(config_path)
-    config_data['SuperUser'] = SUPERUSERS1
-    config_data['ImageRecall'] = RECALL_TIME1
-    config_data['Auto']['Group'] = GROUP_LIST1
-    config_data['Auto']['AutoFortune'] = ENABLE_AUTO_FORTUNE1
-    config_data['Auto']['AutoNews'] = ENABLE_AUTO_NEWS1
-    config_data['Auto']['AutoTips'] = ENABLE_AUTO_TIPS1
-    config_data['BaiDuAPI']['APP_ID'] = APP_ID1
-    config_data['BaiDuAPI']['API_KEY'] = API_KEY1
-    config_data['BaiDuAPI']['SECRET_KEY'] = SECRET_KEY1
-    config_data['AgreeFriend'] = AGREE_FRIEND1
-    config_data['AgreeGroup'] = AGREE_GROUP1
-    config_data['AI']['Enable'] = AI_ENABLE1
-    config_data['AI']['ModelUrl'] = MODEL_URL1
-    config_data['AI']['ModelName'] = MODEL_NAME1
-    config_data['AI']['Key'] = AI_KEY1
-    config_data['NickName'] = NICKNAME1
 
+    # 读取新配置模板并合并用户配置
+    new_config = read_yaml_file(config_path)
+
+    def deep_update(base_dict, update_dict):
+        """递归更新字典"""
+        for key, value in update_dict.items():
+            if key in base_dict and isinstance(base_dict[key], dict) and isinstance(value, dict):
+                deep_update(base_dict[key], value)
+            else:
+                base_dict[key] = value
+
+    deep_update(new_config, user_config)
+
+    # 强制更新Version为最新版本
+    new_config['Version'] = CONFIG_VERSION
+
+    # 写入更新后的配置文件
     with open(config_path, 'w', encoding="utf-8") as file:
-        yaml.dump(config_data, file)
+        yaml.dump(new_config, file)
 
 
-SUPERUSERS = read_config('SuperUser')
-RECALL_TIME = read_config('ImageRecall')
-GROUP_LIST = read_config('Auto', 'Group')
-ENABLE_AUTO_FORTUNE = read_config('Auto', 'AutoFortune')
-ENABLE_AUTO_NEWS = read_config('Auto', 'AutoNews')
-ENABLE_AUTO_TIPS = read_config('Auto', 'AutoTips')
-APP_ID = read_config('BaiDuAPI', 'APP_ID')
-API_KEY = read_config('BaiDuAPI', 'API_KEY')
-SECRET_KEY = read_config('BaiDuAPI', 'SECRET_KEY')
-AGREE_FRIEND = read_config('AgreeFriend')
-AGREE_GROUP = read_config('AgreeGroup')
-AI_ENABLE = read_config('AI', 'Enable')
-MODEL_URL = read_config("AI", 'ModelUrl')
-MODEL_NAME = read_config("AI", 'ModelName')
-AI_KEY = read_config("AI", 'Key')
-NICKNAME = read_config('NickName')
+SUPERUSERS = read_config('SuperUser', default='')
+RECALL_TIME = read_config('ImageRecall', default=0)
+GROUP_LIST = read_config('Auto', 'Group', default=[])
+ENABLE_AUTO_FORTUNE = read_config('Auto', 'AutoFortune', default=False)
+ENABLE_AUTO_NEWS = read_config('Auto', 'AutoNews', default=False)
+ENABLE_AUTO_TIPS = read_config('Auto', 'AutoTips', default=False)
+APP_ID = read_config('BaiDuAPI', 'APP_ID', default='')
+API_KEY = read_config('BaiDuAPI', 'API_KEY', default='')
+SECRET_KEY = read_config('BaiDuAPI', 'SECRET_KEY', default='')
+AGREE_FRIEND = read_config('AgreeFriend', default=False)
+AGREE_GROUP = read_config('AgreeGroup', default=False)
+AI_ENABLE = read_config('AI', 'Enable', default=False)
+MODEL_URL = read_config("AI", 'ModelUrl', default='')
+MODEL_NAME = read_config("AI", 'ModelName', default='')
+AI_KEY = read_config("AI", 'Key', default='')
+NICKNAME = read_config('NickName', default='机器人')
+# 通知服务配置 - 添加判空和默认值处理
+NOTIFICATION_API_URL = read_config('Notification', 'ApiUrl', default='')
+ENABLE_BOT_MONITOR = read_config('Notification', 'EnableBotMonitor', default=False)
+# 运势功能配置
+FORTUNE_COOKIE = read_config('Fortune', 'Cookie', default='')

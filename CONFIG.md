@@ -1,7 +1,7 @@
 配置文件模板
 ```yaml
 #配置文件版本
-Version: 1.3
+Version: 1.4
 #机器人昵称
 NickName: ''
 #管理员QQ
@@ -36,4 +36,13 @@ Auto:
   AutoTips: false
   #需要自动发送的群列表 用,隔开
   Group: []
+#推送通知配置
+Notification:
+  ApiUrl: ''
+  EnableBotMonitor: false
+#运势功能配置
+Fortune:
+  #微博Cookie用于获取运势信息
+  Cookie: ''
+
 ```

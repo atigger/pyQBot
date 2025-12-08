@@ -18,7 +18,7 @@
 
 已有或正在开发的功能:
 
-- [x] 今日运势查询
+- [x] 今日运势查询（如何获取Cookie见[WBCookie.md](WBCookie.md)）
 
 - [x] 今日新闻查询
 
@@ -51,6 +51,8 @@
 
 - [x] 抽老婆
 
+- [x] 机器人离线通知（基于[Server酱³](https://sc3.ft07.com/)）
+
 - [ ] 
   群管理插件（关键字撤回、自动审核入群申请）[帮助文档](https://pyqbot.miraiqbot.top/#/?id=%e8%b6%85%e7%ba%a7%e7%ae%a1%e7%90%86%e5%91%98)
 
@@ -60,9 +62,13 @@ Tips:有想要的新功能可以提交issue
 
 更新日志：
 
-2024年9月2日v1.2.9更新
+2025年12月8日v1.3.0更新
 
-1.修复Linux下生成路径的问题
+1.增加机器人离线通知功能（基于[Server酱³](https://sc3.ft07.com/)）
+
+2.获取运势增加对新浪微博Cookie的支持（如何获取Cookie见[WBCookie.md](WBCookie.md)）
+
+3.优化了配置文件更新的逻辑
 
 ---
 [更新历史](UPDATE.md)
