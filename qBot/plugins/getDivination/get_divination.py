@@ -17,7 +17,7 @@ async def get_divination():
         data = response.json()
 
         # 结构化返回结果
-        result = f"""
+        result = f"""\n
 【卦名】{data.get('卦名', '未知')}
 【卦文】{data.get('卦文', '未知')}
 【卦意】{data.get('卦意', '未知')}
