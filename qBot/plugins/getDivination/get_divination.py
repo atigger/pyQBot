@@ -17,7 +17,7 @@ async def get_divination():
         data = response.json()
 
         # 结构化返回结果
-        result = f"""\n
+        result = f"""
 【卦名】{data.get('卦名', '未知')}
 【卦文】{data.get('卦文', '未知')}
 【卦意】{data.get('卦意', '未知')}
@@ -29,7 +29,7 @@ async def get_divination():
 占卜时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         """.strip()
 
-        return result
+        return "\n" + result
 
     except requests.RequestException as e:
         return f"网络请求失败：{str(e)}"
