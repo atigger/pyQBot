@@ -25,7 +25,7 @@
 - [x] 今日星座运势
 
 - [x] 随机求签
--
+
 - [x] 摇卦占卜 基于[FAPI](https://api.lolimi.cn/doc/zpzg)
 
 - [x] 点赞名片
