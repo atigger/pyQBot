@@ -8,7 +8,7 @@ from qBot import api, utils
 
 CONFIG_DIR = os.path.join(os.path.dirname(__file__), 'config')
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-VERSION = '1.3.0'
+VERSION = '1.3.5'
 CONFIG_VERSION = '1.4'
 yaml = YAML()
 

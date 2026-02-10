@@ -31,7 +31,7 @@ def get_sign_txt(sender):
     f = open(os.path.join(config.DATA_DIR, '诸葛神签.txt'), 'r', encoding='utf-8')
     json_txt = {
         'date': utils.get_now_date(),
-        'sign': "\n" + random.choice(f.readlines()).replace('\n', '')
+        'sign': random.choice(f.readlines()).replace('\n', '').replace("【", "\n【") + "\n【Tips】新增占卜功能，请发送占卜试试吧(*^_^*)"
     }
     f.close()
     f = open(os.path.join(config.DATA_DIR, 'cache', 'qq', sender + '.cache'), 'w', encoding='utf-8')

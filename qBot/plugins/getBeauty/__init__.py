@@ -1,39 +1,21 @@
-import asyncio
+import json
 
+import requests
 from aiocqhttp import MessageSegment
 from nonebot import CommandSession, on_command
 
-from qBot.plugins import config
-from qBot.utils import delay_delete
-
-
-async def create_message_node(user_id, images):
-    nodes = []
-    for image in images:
-        node = {
-            "type": "node",
-            "data": {
-                "name": "美女图片",
-                "uin": user_id,
-                "content": image
-            }
-        }
-        nodes.append(node)
-    return nodes
+from qBot import api
 
 
 @on_command('beauty', aliases=('美女', '美女图片'))
 async def _(session: CommandSession):
     """
-    以合并转发的形式发送美女图片
+    以单张图片的形式发送美女图片
     """
-    tips_msg = await session.send("正在祈祷中......")
-    url = "https://img.0705.fun/mn.php?token=" + config.APP_ID
-    images = [MessageSegment.image(url), MessageSegment.image(url),
-              MessageSegment.image(url)]
-    nodes = await create_message_node(123456, images)
-    nodes_msg = await session.send(message=nodes)
-    await session.bot.delete_msg(message_id=tips_msg['message_id'])
-    message_id = nodes_msg['message_id']
-    if config.RECALL_TIME != 0:
-        asyncio.create_task(delay_delete(message_id, config.RECALL_TIME))
+    r = requests.get(api.BEAUTY_URL, timeout=10)
+    if r.status_code == 200:
+        data = r.content
+        url_data = json.loads(data)['text']
+        await session.send(message=MessageSegment.image(url_data))
+    else:
+        await session.send('获取图片失败')

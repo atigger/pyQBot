@@ -4,6 +4,7 @@ import time
 
 import nonebot
 import httpx
+from aiocqhttp import MessageSegment
 from aiocqhttp.exceptions import Error as CQHttpError
 from nonebot import logger
 
@@ -11,7 +12,6 @@ from qBot import api
 from qBot import utils
 from qBot.plugins import config
 from qBot.plugins.getFortune import get_fortune
-from qBot.plugins.getNews import get_news
 
 
 @nonebot.scheduler.scheduled_job('cron', minute='*/10')
@@ -60,10 +60,7 @@ async def auto_fish():
     """
     if config.ENABLE_AUTO_FORTUNE is False:
         return
-    file_path = os.path.join(config.DATA_DIR, 'cache', 'mofish', utils.get_now_date() + ".jpg")
-    downLoad_tag = await utils.downLoadFile(api.FISH_URL, file_path)
-    if downLoad_tag:
-        await send_img_to_group(file_path)
+    await send_img_to_group(img_url=api.FISH_URL)
 
 
 @nonebot.scheduler.scheduled_job('cron', hour='8', minute='30')
@@ -74,28 +71,31 @@ async def auto_news():
     """
     if config.ENABLE_AUTO_NEWS is False:
         return
-    img_path = await get_news()
-    if img_path == "获取新闻失败":
-        return
-    await send_img_to_group(img_path)
+    await send_img_to_group(img_url=api.NEWS_URL)
 
 
-async def send_img_to_group(img_path):
+async def send_img_to_group(img_path=None, img_url=None):
     """
     发送图片到群
-    :param img_path: 图片路径
+    :param img_path: 图片路径（本地文件）
+    :param img_url: 图片URL（网络地址）
     :return:
     """
-    base64_data = utils.img_to_base64(img_path)
-    bot = nonebot.get_bot()
-    send_group_list = config.GROUP_LIST
-    for group_id in send_group_list:
-        try:
-            await bot.send_group_msg(group_id=group_id,
-                                     message="[CQ:image,file=" + base64_data + "]")
-        except CQHttpError:
-            pass
-        await asyncio.sleep(5)
+    try:
+        bot = nonebot.get_bot()
+        send_group_list = config.GROUP_LIST
+        if img_path:
+            # 本地图片，转换为base64
+            img_url = utils.img_to_base64(img_path)
+        message = MessageSegment.image(img_url)
+        for group_id in send_group_list:
+            try:
+                await bot.send_group_msg(group_id=group_id, message=message)
+            except CQHttpError:
+                pass
+            await asyncio.sleep(5)
+    except Exception as e:
+        logger.error(f"发送图片到群时发生错误: {e}")
 
 
 # 存储上次通知时间的全局变量
@@ -179,5 +179,5 @@ async def check_bot_online():
             last_offline_notification_time = current_time
             logger.warning(f"机器人离线，已发送通知: {e}")
         else:
-            logger.debug(f"机器人仍然离线，距离下次通知还有 {1800 - (current_time - last_offline_notification_time):.0f} 秒")
-
+            logger.debug(
+                f"机器人仍然离线，距离下次通知还有 {1800 - (current_time - last_offline_notification_time):.0f} 秒")

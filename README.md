@@ -20,11 +20,13 @@
 
 - [x] 今日运势查询（如何获取Cookie见[WBCookie.md](WBCookie.md)）
 
-- [x] 今日新闻查询
+- [x] 今日新闻查询 基于[FAPI](https://api.lolimi.cn/doc/60simg)
 
 - [x] 今日星座运势
 
 - [x] 随机求签
+-
+- [x] 摇卦占卜 基于[FAPI](https://api.lolimi.cn/doc/zpzg)
 
 - [x] 点赞名片
 
@@ -32,9 +34,9 @@
 
 - [x] 喜报悲报
 
-- [x] 随机发送~~美女~~图片
+- [x] 随机发送~~美女~~图片 基于[FAPI](https://api.lolimi.cn/doc/meizit)
 
-- [x] 随机发送~~美女~~视频
+- [x] 随机发送~~美女~~视频 基于[FAPI](https://api.lolimi.cn/doc/xjjsp)
 
 - [x] 音乐分享（来自QQ音乐）
 
@@ -43,9 +45,7 @@
 
 - [x] 王者战力查询
 
-- [x] AI智能回复 接入[ollama](https://github.com/ollama/ollama)与[桑帛云](https://api.lolimi.cn/)
-
-- 如需使用桑帛云AI请将ModelName配置为`沫沫`或`婧枫`
+- [x] AI智能回复 接入[ollama](https://github.com/ollama/ollama)
 
 - [x] [抽塔罗牌](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot)
 
@@ -62,13 +62,13 @@ Tips:有想要的新功能可以提交issue
 
 更新日志：
 
-2025年12月8日v1.3.0更新
+2026年2月10日v1.3.5更新
 
-1.增加机器人离线通知功能（基于[Server酱³](https://sc3.ft07.com/)）
+1.增加了摇卦占卜 基于[FAPI](https://api.lolimi.cn/doc/zpzg)
 
-2.获取运势增加对新浪微博Cookie的支持（如何获取Cookie见[WBCookie.md](WBCookie.md)）
+2.更新了接口API 数据来源更稳定 基于[FAPI](https://api.lolimi.cn)
 
-3.优化了配置文件更新的逻辑
+3.优化了群发图片的逻辑
 
 ---
 [更新历史](UPDATE.md)

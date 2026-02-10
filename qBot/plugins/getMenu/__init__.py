@@ -19,6 +19,7 @@ async def _(session: CommandSession):
         333) + '\n' + MessageSegment.face(333) + '喜报悲报  点赞名片' + MessageSegment.face(
         333) + '\n' + MessageSegment.face(333) + '猜拳游戏  骰子游戏' + MessageSegment.face(
         333) + '\n' + MessageSegment.face(333) + '抽塔罗牌  抽老婆●' + MessageSegment.face(
+        333) + '\n' + MessageSegment.face(333) + '摇卦占卜  敬请期待' + MessageSegment.face(
         333) + '\n◇━━━━━━━━◇\nPS:@我并发相应文字查看指令\n发送@我反馈可反馈信息\n当前版本：' + config.VERSION
     await session.send(msg)
 
